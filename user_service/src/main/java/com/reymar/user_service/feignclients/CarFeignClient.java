@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-// del application.properties del proyecto Car -> spring.application.name=car-service y la url del servicio
+// del bootstrap.yaml del proyecto Car -> spring.application.name=car-service y la url del servicio
 @FeignClient(value = "car-service", url = "http://localhost:8002")
 public interface CarFeignClient {
 
