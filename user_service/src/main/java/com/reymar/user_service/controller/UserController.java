@@ -1,6 +1,7 @@
 package com.reymar.user_service.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import com.reymar.user_service.entity.User;
 import com.reymar.user_service.model.Bike;
@@ -96,6 +97,12 @@ public class UserController {
 
 		Bike newBike = userService.saveBike(userId, bike);
 		return ResponseEntity.ok(newBike);
+	}
+
+	@GetMapping("/getAll/{userId}")
+	public ResponseEntity<Map<String, Object>> getAllVehicles(@PathVariable int userId) {
+		Map<String, Object> result = userService.getUserVehicles(userId);
+		return ResponseEntity.ok(result);
 	}
 
 }

@@ -1,0 +1,26 @@
+post>> (primero hay que crear el usuario)
+{
+    "name": "Reinaldo",
+    "email": "reinaldo@mail.com"
+}
+
+post>>
+localhost:8001/user/savebike/1
+{
+		"brand": "suzuki",
+		"model": "gs125",
+		"userId": 1
+}
+localhost:8001/user/savecar/1
+{
+		"brand": "ford",
+		"model": "model T",
+		"userId": 1
+}
+
+get>>
+localhost:8001/user/getAll/1
+
+get/post
+localhost:8002/car/1
+localhost:8003/bike/1

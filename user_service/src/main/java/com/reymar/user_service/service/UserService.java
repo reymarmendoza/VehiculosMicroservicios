@@ -1,6 +1,8 @@
 package com.reymar.user_service.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.reymar.user_service.entity.User;
 import com.reymar.user_service.feignclients.BikeFeignClient;
@@ -24,6 +26,7 @@ public class UserService {
 	//Synchronous client to perform HTTP requests, exposing a simple, template method API over underlying HTTP client libraries
 	RestTemplate restTemplate;
 
+	// inyectar la interfaz que me permite acceder a los metodos del servicio Car
 	@Autowired
 	CarFeignClient carFeignClient;
 
@@ -64,6 +67,33 @@ public class UserService {
 		bike.setUserId(userId);
 		Bike newBike = bikeFeignClient.save(bike);
 		return newBike;
+	}
+
+	public Map<String, Object> getUserVehicles(int userId) {
+		Map<String, Object> result = new HashMap<>();
+
+		User user = userRepository.findById(userId).orElse(null);
+		if (user == null) {
+			result.put("Mensaje", "No existe el usuario");
+			return result; // si no hay usuario no tiene sentido seguir con la consulta
+		} else {
+			result.put("User", user);
+		}
+
+		List<Car> cars = carFeignClient.getCars(userId);
+		if (cars.isEmpty())
+			result.put("Cars", "No existen carros para ese usuario");
+		else
+			result.put("Cars", cars);
+
+		List<Bike> bikes = bikeFeignClient.getBikes(userId);
+		if (bikes.isEmpty())
+			result.put("Bikes", "No existen motos para ese usuario");
+		else
+			result.put("Bikes", bikes);
+
+		return result;
+
 	}
 
 }
