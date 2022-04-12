@@ -22,21 +22,30 @@ public class BikeController {
 	@GetMapping
 	public ResponseEntity<List<Bike>> getAll() {
 		List<Bike> bikes = bikeService.getAll();
-		if (bikes.isEmpty()) return ResponseEntity.noContent().build();
+
+		if (bikes.isEmpty())
+			return ResponseEntity.noContent().build();
+
 		return ResponseEntity.ok(bikes);
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Bike> getById(@PathVariable int id) {
 		Bike bike = bikeService.getBikeById(id);
-		if (bike == null) return ResponseEntity.notFound().build();
+
+		if (bike == null)
+			return ResponseEntity.notFound().build();
+
 		return ResponseEntity.ok(bike);
 	}
 
 	@PostMapping()
 	public ResponseEntity<Bike> save(@RequestBody Bike car) {
 		Bike newBike = bikeService.save(car);
-		if (newBike == null) return ResponseEntity.notFound().build();
+
+		if (newBike == null)
+			return ResponseEntity.notFound().build();
+
 		return ResponseEntity.ok(newBike);
 	}
 

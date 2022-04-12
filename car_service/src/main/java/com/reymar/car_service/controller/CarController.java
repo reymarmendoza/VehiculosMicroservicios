@@ -22,21 +22,30 @@ public class CarController {
 	@GetMapping
 	public ResponseEntity<List<Car>> getAll() {
 		List<Car> cars = carService.getAll();
-		if (cars.isEmpty()) return ResponseEntity.noContent().build();
+
+		if (cars.isEmpty())
+			return ResponseEntity.noContent().build();
+
 		return ResponseEntity.ok(cars);
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Car> getById(@PathVariable int id) {
 		Car car = carService.getCarById(id);
-		if (car == null) return ResponseEntity.notFound().build();
+
+		if (car == null)
+			return ResponseEntity.notFound().build();
+
 		return ResponseEntity.ok(car);
 	}
 
 	@PostMapping()
 	public ResponseEntity<Car> save(@RequestBody Car car) {
 		Car newCar = carService.save(car);
-		if (newCar == null) return ResponseEntity.notFound().build();
+
+		if (newCar == null)
+			return ResponseEntity.notFound().build();
+
 		return ResponseEntity.ok(newCar);
 	}
 
