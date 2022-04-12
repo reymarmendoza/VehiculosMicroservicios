@@ -3,6 +3,8 @@ package com.reymar.user_service.controller;
 import java.util.List;
 
 import com.reymar.user_service.entity.User;
+import com.reymar.user_service.model.Bike;
+import com.reymar.user_service.model.Car;
 import com.reymar.user_service.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +45,23 @@ public class UserController {
 		User newUser = userService.save(user);
 		if (newUser == null) return ResponseEntity.notFound().build();
 		return ResponseEntity.ok(newUser);
+	}
+
+	// este endpoint va a ser atendido por el microservicio de Car
+	@GetMapping("/cars/{userId}")
+	public ResponseEntity<List<Car>> getCars(@PathVariable int userId) {
+		User user = userService.getUserById(userId);
+		if (user == null) return ResponseEntity.notFound().build();
+		List<Car> cars = userService.getCars((userId));
+		return ResponseEntity.ok(cars);
+	}
+
+	@GetMapping("/bikes/{bikesId}")
+	public ResponseEntity<List<Bike>> getBikes(@PathVariable int bikesId) {
+		User user = userService.getUserById(bikesId);
+		if (user == null) return ResponseEntity.notFound().build();
+		List<Bike> bikes = userService.getBikes((bikesId));
+		return ResponseEntity.ok(bikes);
 	}
 
 }
