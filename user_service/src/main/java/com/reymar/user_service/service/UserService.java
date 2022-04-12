@@ -3,6 +3,7 @@ package com.reymar.user_service.service;
 import java.util.List;
 
 import com.reymar.user_service.entity.User;
+import com.reymar.user_service.feignclients.BikeFeignClient;
 import com.reymar.user_service.feignclients.CarFeignClient;
 import com.reymar.user_service.model.Bike;
 import com.reymar.user_service.model.Car;
@@ -25,6 +26,9 @@ public class UserService {
 
 	@Autowired
 	CarFeignClient carFeignClient;
+
+	@Autowired
+	BikeFeignClient bikeFeignClient;
 
 	public List<User> getAll() {
 		return userRepository.findAll();
@@ -54,6 +58,12 @@ public class UserService {
 		car.setUserId(userId);
 		Car newCar = carFeignClient.save(car);
 		return newCar;
+	}
+
+	public Bike saveBike(int userId, Bike bike) {
+		bike.setUserId(userId);
+		Bike newBike = bikeFeignClient.save(bike);
+		return newBike;
 	}
 
 }
