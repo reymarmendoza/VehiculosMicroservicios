@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+
 	@Autowired
 	UserService userService;
 
@@ -62,6 +63,12 @@ public class UserController {
 		if (user == null) return ResponseEntity.notFound().build();
 		List<Bike> bikes = userService.getBikes((bikesId));
 		return ResponseEntity.ok(bikes);
+	}
+
+	@PostMapping("/savecar/{userId}")
+	public ResponseEntity<Car> saveCar(@PathVariable int userId, @RequestBody Car car) {
+		Car newCar = userService.saveCar(userId, car);
+		return ResponseEntity.ok(newCar);
 	}
 
 }
